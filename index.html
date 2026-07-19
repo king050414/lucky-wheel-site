@@ -247,6 +247,1103 @@
       text-underline-offset: 3px;
     }
 
+    .footer-admin:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+    }
+
+    .media-status {
+      position: fixed;
+      z-index: 9;
+      left: 50%;
+      bottom: 22px;
+      max-width: calc(100vw - 32px);
+      padding: 10px 14px;
+      border-radius: 4px;
+      color: white;
+      background: #9a3f38;
+      box-shadow: 0 8px 24px rgba(23, 41, 67, .24);
+      transform: translateX(-50%);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .media-status[hidden] { display: none; }
+
+    .dialog-backdrop {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(9, 24, 39, .68);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+
+    .dialog-backdrop.open { opacity: 1; visibility: visible; }
+
+    .dialog {
+      width: min(440px, 100%);
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      padding: 32px 30px 26px;
+      border: 1px solid rgba(203, 158, 81, .7);
+      border-top: 5px solid var(--gold);
+      border-radius: 6px;
+      background: #fffdf7;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .35);
+      text-align: center;
+      transform: translateY(12px) scale(.98);
+      transition: transform .2s ease;
+    }
+
+    .dialog.admin-dialog { width: min(760px, 100%); }
+
+    .open .dialog { transform: translateY(0) scale(1); }
+    .dialog-icon { font-size: 52px; }
+    .dialog h2 { margin: 8px 0 10px; font-size: 25px; }
+    .dialog p { margin: 0 0 20px; color: var(--muted); line-height: 1.7; }
+    .dialog-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+    .action-button {
+      min-width: 112px;
+      padding: 11px 16px;
+      border: 1px solid #204563;
+      border-radius: 4px;
+      color: white;
+      background: #254e6d;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .action-button.secondary { color: #31465a; border-color: #bdc6cc; background: white; }
+
+    .form-stack { display: grid; gap: 12px; margin-top: 18px; text-align: left; }
+    .form-stack[hidden] { display: none; }
+
+    .form-label {
+      display: grid;
+      gap: 6px;
+      color: #31465a;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .form-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #b9c4cb;
+      border-radius: 4px;
+      color: var(--ink);
+      background: white;
+    }
+
+    textarea.form-input { min-height: 86px; resize: vertical; word-break: break-all; }
+    .form-status { min-height: 20px; margin: 0; color: #2f6b4f; font-size: 13px; text-align: center; }
+    .form-status.error { color: #a13d36; }
+
+    .admin-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin: 18px 0;
+      padding: 4px;
+      border-radius: 5px;
+      background: #e7ecec;
+    }
+
+    .admin-tab {
+      min-height: 40px;
+      border: 0;
+      border-radius: 3px;
+      color: #4b5d6c;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .admin-tab[aria-selected="true"] {
+      color: white;
+      background: #254e6d;
+      box-shadow: 0 2px 8px rgba(23, 41, 67, .18);
+    }
+
+    .prize-editor { display: grid; gap: 0; }
+
+    .prize-edit-row {
+      display: grid;
+      grid-template-columns: 46px minmax(120px, 1.1fr) minmax(150px, 1.5fr) 100px 130px;
+      align-items: end;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #dbe1e3;
+    }
+
+    .prize-edit-row:last-child { border-bottom: 0; }
+
+    .edit-tier {
+      align-self: center;
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .compact-label {
+      display: grid;
+      gap: 5px;
+      color: #4b5d6c;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .compact-input {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 9px;
+      border: 1px solid #b9c4cb;
+      border-radius: 4px;
+      color: var(--ink);
+      background: white;
+    }
+
+    @media (max-width: 850px) {
+      .app { padding: 18px 14px; }
+      .topbar { align-items: flex-start; flex-wrap: wrap; }
+      .top-actions { margin-left: auto; }
+      .game { grid-template-columns: 1fr; gap: 20px; }
+      .wheel-stage { width: min(82vw, 560px); justify-self: center; }
+      .tier-panel { width: min(560px, 100%); justify-self: center; padding: 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .brand-mark { display: none; }
+      h1 { font-size: 24px; }
+      .top-actions { width: 100%; margin-left: 0; }
+      .chance { flex: 1; min-width: 100px; padding: 7px 10px; }
+      .wheel-stage { width: min(92vw, 420px); }
+      .utility-button { min-height: 38px; }
+      .dialog { padding: 27px 20px 22px; }
+      .prize-edit-row {
+        grid-template-columns: 38px 1fr 86px;
+        align-items: end;
+      }
+      .prize-edit-row .detail-field,
+      .prize-edit-row .behavior-field { grid-column: 2 / -1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      canvas { transition-timing-function: linear; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <h1>幸运转盘</h1>
+      </div>
+      <div class="top-actions">
+        <div class="chance" aria-live="polite">剩余机会 <strong id="chanceCount">1</strong> 次</div>
+        <button class="utility-button icon-only" id="redeemOpenButton" type="button" aria-label="兑换转盘次数" title="兑换转盘次数">+</button>
+      </div>
+    </header>
+
+    <section class="game" aria-label="幸运转盘">
+      <div class="wheel-stage">
+        <div class="pointer" aria-hidden="true"></div>
+        <div class="wheel-ring">
+          <canvas id="wheel" width="900" height="900" aria-label="S级至D级奖励转盘"></canvas>
+        </div>
+        <button class="spin-button" id="spinButton" type="button">开始</button>
+      </div>
+
+      <aside class="tier-panel">
+        <h2 class="panel-title">奖励等级</h2>
+        <ol class="tier-list" id="tierList"></ol>
+      </aside>
+    </section>
+
+    <footer>
+      <span>奖励内容将在转盘停止后揭晓</span>
+      <button class="footer-admin" id="adminOpenButton" type="button">管理员模式</button>
+    </footer>
+  </main>
+
+  <div class="media-status" id="mediaStatus" role="status" aria-live="polite" hidden></div>
+
+  <div class="dialog-backdrop" id="resultDialog" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="dialog">
+      <div class="dialog-icon" id="resultIcon" aria-hidden="true"></div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultText"></p>
+      <div class="dialog-actions" id="resultActions"></div>
+    </div>
+  </div>
+
+  <div class="dialog-backdrop" id="redeemDialog" role="dialog" aria-modal="true" aria-labelledby="redeemTitle">
+    <div class="dialog">
+      <div class="dialog-icon" aria-hidden="true">＋</div>
+      <h2 id="redeemTitle">兑换转盘次数</h2>
+      <div class="form-stack">
+        <label class="form-label" for="redeemCode">次数兑换码</label>
+        <textarea class="form-input" id="redeemCode" autocomplete="off" spellcheck="false"></textarea>
+        <p class="form-status" id="redeemStatus" aria-live="polite"></p>
+        <div class="dialog-actions">
+          <button class="action-button secondary" type="button" data-close="redeemDialog">取消</button>
+          <button class="action-button" id="redeemButton" type="button">立即兑换</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-backdrop" id="adminDialog" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="dialog admin-dialog">
+      <div class="dialog-icon" aria-hidden="true">◆</div>
+      <h2 id="adminTitle">管理员模式</h2>
+      <div class="form-stack" id="adminUnlockPanel">
+        <label class="form-label" for="adminPin">管理员密码</label>
+        <input class="form-input" id="adminPin" type="password" inputmode="numeric" autocomplete="off">
+        <p class="form-status" id="adminUnlockStatus" aria-live="polite"></p>
+        <div class="dialog-actions">
+          <button class="action-button secondary" type="button" data-close="adminDialog">取消</button>
+          <button class="action-button" id="adminUnlockButton" type="button">解锁</button>
+        </div>
+      </div>
+      <div id="adminWorkspace" hidden>
+        <div class="admin-tabs" role="tablist" aria-label="管理员功能">
+          <button class="admin-tab" id="grantTabButton" type="button" role="tab" aria-selected="true" aria-controls="adminGrantPanel">次数管理</button>
+          <button class="admin-tab" id="prizeTabButton" type="button" role="tab" aria-selected="false" aria-controls="adminPrizePanel">奖品设置</button>
+        </div>
+        <div class="form-stack" id="adminGrantPanel" role="tabpanel">
+          <label class="form-label" for="grantCount">赠送次数</label>
+          <input class="form-input" id="grantCount" type="number" min="1" max="99" value="1">
+          <button class="action-button" id="generateCodeButton" type="button">生成次数码</button>
+          <label class="form-label" for="grantOutput">次数码</label>
+          <textarea class="form-input" id="grantOutput" readonly spellcheck="false"></textarea>
+          <p class="form-status" id="grantStatus" aria-live="polite"></p>
+          <div class="dialog-actions">
+            <button class="action-button secondary" type="button" data-close="adminDialog">关闭</button>
+            <button class="action-button" id="copyCodeButton" type="button">复制次数码</button>
+          </div>
+        </div>
+        <div class="form-stack" id="adminPrizePanel" role="tabpanel" hidden>
+          <div class="prize-editor" id="prizeEditor"></div>
+          <p class="form-status" id="prizeConfigStatus" aria-live="polite"></p>
+          <div class="dialog-actions">
+            <button class="action-button secondary" id="resetPrizesButton" type="button">恢复默认</button>
+            <button class="action-button secondary" type="button" data-close="adminDialog">关闭</button>
+            <button class="action-button" id="savePrizesButton" type="button">保存奖品设置</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="spinAudio" preload="auto" playsinline>
+    <source src="assets/spin-audio.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mysteryAudio" preload="auto" playsinline>
+    <source src="assets/mystery-audio.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const OFFICIAL_URL = "https://ys.mihoyo.com/main/?af_adset=1&utm_source=yuanshen_web";
+    const STATE_KEY = "lucky-wheel-state-v2";
+    const ADMIN_PIN = "8888";
+    const CODE_SECRET = "lucky-wheel-offline-grant-2026";
+
+    const defaultPrizes = [
+      { tier: "S", label: "谢谢参与", detail: "期待下次好运", weight: 2, color: "#8d87ad", icon: "◇" },
+      { tier: "A", label: "请喝蜜雪", detail: "一次（10 元内）", weight: 3, color: "#d98371", icon: "♨" },
+      { tier: "B", label: "免费帮肝", detail: "一星期每日委托", weight: 5, color: "#67a991", icon: "✓" },
+      { tier: "C", label: "再转一次", detail: "获得多转一次的机会", weight: 10, color: "#4d82a8", icon: "↻", bonus: true },
+      { tier: "D", label: "神秘礼物", detail: "即将前往《原神》官方下载页", weight: 70, color: "#e8c777", icon: "✦", redirect: true }
+    ];
+
+    const canvas = document.querySelector("#wheel");
+    const ctx = canvas.getContext("2d");
+    const spinButton = document.querySelector("#spinButton");
+    const chanceCount = document.querySelector("#chanceCount");
+    const resultDialog = document.querySelector("#resultDialog");
+    const resultIcon = document.querySelector("#resultIcon");
+    const resultTitle = document.querySelector("#resultTitle");
+    const resultText = document.querySelector("#resultText");
+    const resultActions = document.querySelector("#resultActions");
+    const redeemDialog = document.querySelector("#redeemDialog");
+    const adminDialog = document.querySelector("#adminDialog");
+    const adminOpenButton = document.querySelector("#adminOpenButton");
+    const spinAudio = document.querySelector("#spinAudio");
+    const mysteryAudio = document.querySelector("#mysteryAudio");
+    const mediaStatus = document.querySelector("#mediaStatus");
+    const storedState = loadState();
+    let prizes = storedState.prizes;
+    let chances = storedState.chances;
+    const redeemedCodes = new Set(storedState.redeemedCodes);
+    let rotation = 0;
+    let spinning = false;
+    let redirecting = false;
+    let pendingPrize = null;
+    let spinFallbackTimer = null;
+    let redirectFallbackTimer = null;
+    let mysteryAudioUnlocked = false;
+
+    function loadState() {
+      try {
+        const value = JSON.parse(localStorage.getItem(STATE_KEY));
+        const storedChances = Number(value?.chances);
+        return {
+          chances: Number.isInteger(storedChances) && storedChances >= 0 ? storedChances : 1,
+          redeemedCodes: Array.isArray(value?.redeemedCodes) ? value.redeemedCodes.slice(-200) : [],
+          prizes: sanitizePrizes(value?.prizes)
+        };
+      } catch {
+        return { chances: 1, redeemedCodes: [], prizes: cloneDefaultPrizes() };
+      }
+    }
+
+    function cloneDefaultPrizes() {
+      return defaultPrizes.map(prize => ({ ...prize }));
+    }
+
+    function sanitizePrizes(value) {
+      if (!Array.isArray(value) || value.length !== defaultPrizes.length) return cloneDefaultPrizes();
+      return defaultPrizes.map((defaults, index) => {
+        const candidate = value[index] || {};
+        const weight = Number(candidate.weight);
+        return {
+          ...defaults,
+          label: typeof candidate.label === "string" && candidate.label.trim() ? candidate.label.trim().slice(0, 24) : defaults.label,
+          detail: typeof candidate.detail === "string" && candidate.detail.trim() ? candidate.detail.trim().slice(0, 80) : defaults.detail,
+          weight: Number.isFinite(weight) && weight > 0 ? Math.min(weight, 10000) : defaults.weight,
+          bonus: candidate.bonus === true,
+          redirect: candidate.redirect === true
+        };
+      });
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STATE_KEY, JSON.stringify({
+          chances,
+          redeemedCodes: Array.from(redeemedCodes).slice(-200),
+          prizes: prizes.map(({ tier, label, detail, weight, color, icon, bonus, redirect }) => ({
+            tier, label, detail, weight, color, icon, bonus: bonus === true, redirect: redirect === true
+          }))
+        }));
+      } catch {
+        // The page still works when storage is unavailable; only persistence is lost.
+      }
+    }
+
+    function updateChanceUI() {
+      chanceCount.textContent = chances;
+      spinButton.disabled = spinning || redirecting || chances <= 0;
+      adminOpenButton.disabled = spinning || redirecting;
+      if (redirecting) spinButton.textContent = "开启中";
+      else if (spinning) spinButton.textContent = "转动中";
+      else spinButton.textContent = chances > 0 ? "开始" : "已抽完";
+    }
+
+    function reportMediaError(message) {
+      mediaStatus.textContent = message;
+      mediaStatus.hidden = false;
+      window.setTimeout(() => { mediaStatus.hidden = true; }, 4200);
+    }
+
+    function unlockMysteryAudio() {
+      if (mysteryAudioUnlocked) return;
+      mysteryAudio.muted = true;
+      mysteryAudio.currentTime = 0;
+      const unlockAttempt = mysteryAudio.play();
+      if (!unlockAttempt) return;
+      unlockAttempt.then(() => {
+        mysteryAudio.pause();
+        mysteryAudio.currentTime = 0;
+        mysteryAudio.muted = false;
+        mysteryAudioUnlocked = true;
+      }).catch(() => {
+        mysteryAudio.muted = false;
+      });
+    }
+
+    function drawWheel() {
+      const size = canvas.width;
+      const center = size / 2;
+      const radius = center - 18;
+      const arc = Math.PI * 2 / prizes.length;
+      ctx.clearRect(0, 0, size, size);
+      let start = -Math.PI / 2;
+
+      prizes.forEach((prize) => {
+        const end = start + arc;
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, radius, start, end);
+        ctx.closePath();
+        ctx.fillStyle = prize.color;
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,.84)";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        const mid = start + arc / 2;
+        const textRadius = radius * .64;
+        const x = center + Math.cos(mid) * textRadius;
+        const y = center + Math.sin(mid) * textRadius;
+        ctx.save();
+        ctx.translate(x, y);
+        let textAngle = mid + Math.PI / 2;
+        const normalized = ((textAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+        if (normalized > Math.PI / 2 && normalized < Math.PI * 1.5) textAngle += Math.PI;
+        ctx.rotate(textAngle);
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.shadowColor = "rgba(20,31,42,.42)";
+        ctx.shadowBlur = 5;
+        ctx.font = "800 56px Georgia, serif";
+        ctx.fillText(`${prize.tier}级`, 0, 0);
+        ctx.restore();
+        start = end;
+      });
+
+      ctx.beginPath();
+      ctx.arc(center, center, radius * .15, 0, Math.PI * 2);
+      ctx.fillStyle = "#f4e0a9";
+      ctx.fill();
+      ctx.strokeStyle = "#b9893b";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+    }
+
+    function renderTierList() {
+      document.querySelector("#tierList").innerHTML = prizes.map(prize => `
+        <li class="tier-item">
+          <span class="tier-badge" style="color:${prize.color}">${prize.tier}</span>
+          <span><strong>${prize.tier}级奖励</strong><br>内容待揭晓</span>
+        </li>
+      `).join("");
+    }
+
+    function weightedPick() {
+      const totalWeight = prizes.reduce((sum, prize) => sum + prize.weight, 0);
+      let roll = Math.random() * totalWeight;
+      for (let index = 0; index < prizes.length; index += 1) {
+        roll -= prizes[index].weight;
+        if (roll < 0) return index;
+      }
+      return prizes.length - 1;
+    }
+
+    function segmentGeometry(index) {
+      const span = 360 / prizes.length;
+      const start = -90 + index * span;
+      return { center: start + span / 2, span };
+    }
+
+    function openDialog(element) {
+      element.classList.add("open");
+    }
+
+    function closeDialog(element) {
+      element.classList.remove("open");
+    }
+
+    function showResult(prize, locked = false) {
+      resultIcon.textContent = prize.icon;
+      resultTitle.textContent = `${prize.tier}级 · ${prize.label}`;
+      resultText.textContent = prize.detail;
+      resultActions.innerHTML = "";
+      resultDialog.dataset.locked = locked ? "true" : "false";
+
+      const close = document.createElement("button");
+      close.className = locked ? "action-button secondary" : "action-button";
+      close.type = "button";
+      close.textContent = locked ? "关闭提示" : "收下奖励";
+      close.addEventListener("click", locked ? cancelRedirectResult : () => closeDialog(resultDialog));
+      resultActions.append(close);
+
+      if (locked) {
+        const goNow = document.createElement("button");
+        goNow.className = "action-button";
+        goNow.type = "button";
+        goNow.textContent = "立即前往";
+        goNow.addEventListener("click", goToOfficialSite);
+        resultActions.append(goNow);
+      }
+      openDialog(resultDialog);
+    }
+
+    function cancelRedirectResult() {
+      redirecting = false;
+      window.clearTimeout(redirectFallbackTimer);
+      mysteryAudio.pause();
+      mysteryAudio.currentTime = 0;
+      resultDialog.dataset.locked = "false";
+      closeDialog(resultDialog);
+      updateChanceUI();
+    }
+
+    function spin() {
+      if (spinning || redirecting || chances <= 0) return;
+      spinning = true;
+      chances -= 1;
+      saveState();
+      updateChanceUI();
+
+      const resultIndex = weightedPick();
+      pendingPrize = prizes[resultIndex];
+      const { center, span } = segmentGeometry(resultIndex);
+      const safeJitter = (Math.random() - .5) * span * .45;
+      const desired = -90 - (center + safeJitter);
+      const currentMod = ((rotation % 360) + 360) % 360;
+      const desiredMod = ((desired % 360) + 360) % 360;
+      const adjustment = (desiredMod - currentMod + 360) % 360;
+      rotation += 5 * 360 + adjustment;
+      canvas.style.transform = `rotate(${rotation}deg)`;
+
+      spinAudio.pause();
+      spinAudio.currentTime = 0;
+      const spinPlayback = spinAudio.play();
+      unlockMysteryAudio();
+      spinPlayback?.catch(() => reportMediaError("音频加载失败，本次转盘将静音运行"));
+      window.clearTimeout(spinFallbackTimer);
+      spinFallbackTimer = window.setTimeout(finishSpin, 4950);
+    }
+
+    function finishSpin() {
+      if (!spinning || !pendingPrize) return;
+      window.clearTimeout(spinFallbackTimer);
+      spinning = false;
+      const prize = pendingPrize;
+      pendingPrize = null;
+
+      if (prize.bonus) chances += 1;
+      saveState();
+
+      if (prize.redirect) {
+        redirecting = true;
+        updateChanceUI();
+        showResult(prize, true);
+        mysteryAudio.pause();
+        mysteryAudio.currentTime = 0;
+        const playback = mysteryAudio.play();
+        playback.catch(() => {
+          reportMediaError("奖励音频加载失败，正在继续跳转");
+          goToOfficialSite();
+        });
+        window.clearTimeout(redirectFallbackTimer);
+        redirectFallbackTimer = window.setTimeout(goToOfficialSite, 4200);
+        return;
+      }
+
+      updateChanceUI();
+      showResult(prize);
+    }
+
+    function goToOfficialSite() {
+      if (!redirecting) return;
+      redirecting = false;
+      window.clearTimeout(redirectFallbackTimer);
+      window.location.assign(OFFICIAL_URL);
+    }
+
+    function hashText(text) {
+      let hash = 2166136261;
+      for (let index = 0; index < text.length; index += 1) {
+        hash ^= text.charCodeAt(index);
+        hash = Math.imul(hash, 16777619);
+      }
+      return (hash >>> 0).toString(36).toUpperCase();
+    }
+
+    function encodePayload(text) {
+      return btoa(text).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+    }
+
+    function decodePayload(text) {
+      const base64 = text.replaceAll("-", "+").replaceAll("_", "/");
+      return atob(base64.padEnd(Math.ceil(base64.length / 4) * 4, "="));
+    }
+
+    function generateGrantCode(count) {
+      const random = new Uint32Array(1);
+      crypto.getRandomValues(random);
+      const payload = `${count}.${Date.now().toString(36)}.${random[0].toString(36)}`;
+      const encoded = encodePayload(payload);
+      const signature = hashText(`${encoded}.${CODE_SECRET}`);
+      return `LW1.${encoded}.${signature}`;
+    }
+
+    function redeemGrantCode(rawCode) {
+      const code = rawCode.trim();
+      const parts = code.split(".");
+      if (parts.length !== 3 || parts[0] !== "LW1") throw new Error("兑换码格式不正确");
+      const expected = hashText(`${parts[1]}.${CODE_SECRET}`);
+      if (parts[2] !== expected) throw new Error("兑换码校验失败");
+
+      const payload = decodePayload(parts[1]).split(".");
+      const count = Number(payload[0]);
+      if (!Number.isInteger(count) || count < 1 || count > 99) throw new Error("兑换次数无效");
+      const redemptionId = hashText(code);
+      if (redeemedCodes.has(redemptionId)) throw new Error("该兑换码已使用");
+
+      redeemedCodes.add(redemptionId);
+      chances += count;
+      saveState();
+      updateChanceUI();
+      return count;
+    }
+
+    function setStatus(element, text, isError = false) {
+      element.textContent = text;
+      element.classList.toggle("error", isError);
+    }
+
+    function switchAdminTab(tabName) {
+      const grantActive = tabName === "grant";
+      document.querySelector("#grantTabButton").setAttribute("aria-selected", String(grantActive));
+      document.querySelector("#prizeTabButton").setAttribute("aria-selected", String(!grantActive));
+      document.querySelector("#adminGrantPanel").hidden = !grantActive;
+      document.querySelector("#adminPrizePanel").hidden = grantActive;
+      if (!grantActive) renderPrizeEditor();
+    }
+
+    function renderPrizeEditor(source = prizes) {
+      const editor = document.querySelector("#prizeEditor");
+      editor.innerHTML = "";
+
+      source.forEach((prize, index) => {
+        const row = document.createElement("div");
+        row.className = "prize-edit-row";
+        row.dataset.index = index;
+        row.innerHTML = `
+          <div class="edit-tier" style="color:${prize.color}">${prize.tier}</div>
+          <label class="compact-label">奖品名称<input class="compact-input prize-name" maxlength="24"></label>
+          <label class="compact-label detail-field">奖品说明<input class="compact-input prize-detail" maxlength="80"></label>
+          <label class="compact-label">概率权重<input class="compact-input prize-weight" type="number" min="0.01" max="10000" step="0.01"></label>
+          <label class="compact-label behavior-field">中奖行为<select class="compact-input prize-behavior"><option value="normal">普通奖励</option><option value="bonus">增加一次</option><option value="redirect">跳转原神</option></select></label>
+        `;
+        row.querySelector(".prize-name").value = prize.label;
+        row.querySelector(".prize-detail").value = prize.detail;
+        row.querySelector(".prize-weight").value = prize.weight;
+        row.querySelector(".prize-behavior").value = prize.redirect ? "redirect" : prize.bonus ? "bonus" : "normal";
+        editor.append(row);
+      });
+    }
+
+    function savePrizeConfiguration() {
+      const rows = Array.from(document.querySelectorAll("#prizeEditor .prize-edit-row"));
+      const nextPrizes = rows.map((row, index) => {
+        const label = row.querySelector(".prize-name").value.trim();
+        const detail = row.querySelector(".prize-detail").value.trim();
+        const weight = Number(row.querySelector(".prize-weight").value);
+        const behavior = row.querySelector(".prize-behavior").value;
+        if (!label || !detail) throw new Error(`${defaultPrizes[index].tier}级名称和说明不能为空`);
+        if (!Number.isFinite(weight) || weight <= 0) throw new Error(`${defaultPrizes[index].tier}级概率权重必须大于 0`);
+        return {
+          ...defaultPrizes[index],
+          label: label.slice(0, 24),
+          detail: detail.slice(0, 80),
+          weight: Math.min(weight, 10000),
+          bonus: behavior === "bonus",
+          redirect: behavior === "redirect"
+        };
+      });
+
+      prizes = nextPrizes;
+      saveState();
+      drawWheel();
+      renderTierList();
+      const total = prizes.reduce((sum, prize) => sum + prize.weight, 0);
+      setStatus(document.querySelector("#prizeConfigStatus"), `奖品设置已保存，总权重 ${total}`);
+    }
+
+    function resetPrizeConfiguration() {
+      prizes = cloneDefaultPrizes();
+      saveState();
+      drawWheel();
+      renderTierList();
+      renderPrizeEditor();
+      setStatus(document.querySelector("#prizeConfigStatus"), "已恢复默认奖品与概率");
+    }
+
+    spinButton.addEventListener("click", spin);
+    spinAudio.addEventListener("error", () => reportMediaError("转盘音频资源加载失败"));
+    mysteryAudio.addEventListener("error", () => reportMediaError("奖励音频资源加载失败"));
+    spinAudio.addEventListener("ended", finishSpin);
+    mysteryAudio.addEventListener("ended", goToOfficialSite);
+
+    document.querySelector("#redeemOpenButton").addEventListener("click", () => {
+      document.querySelector("#redeemCode").value = "";
+      setStatus(document.querySelector("#redeemStatus"), "");
+      openDialog(redeemDialog);
+      document.querySelector("#redeemCode").focus();
+    });
+
+    document.querySelector("#redeemButton").addEventListener("click", () => {
+      const status = document.querySelector("#redeemStatus");
+      try {
+        const count = redeemGrantCode(document.querySelector("#redeemCode").value);
+        setStatus(status, `兑换成功，已增加 ${count} 次机会`);
+      } catch (error) {
+        setStatus(status, error.message, true);
+      }
+    });
+
+    adminOpenButton.addEventListener("click", () => {
+      if (spinning || redirecting) {
+        reportMediaError("请先完成当前抽奖，再进入管理员模式");
+        return;
+      }
+      closeDialog(resultDialog);
+      closeDialog(redeemDialog);
+      document.querySelector("#adminPin").value = "";
+      document.querySelector("#adminWorkspace").hidden = true;
+      document.querySelector("#adminUnlockPanel").hidden = false;
+      setStatus(document.querySelector("#adminUnlockStatus"), "");
+      setStatus(document.querySelector("#prizeConfigStatus"), "");
+      openDialog(adminDialog);
+      document.querySelector("#adminPin").focus();
+    });
+
+    document.querySelector("#adminUnlockButton").addEventListener("click", () => {
+      const status = document.querySelector("#adminUnlockStatus");
+      if (document.querySelector("#adminPin").value !== ADMIN_PIN) {
+        setStatus(status, "管理员密码错误", true);
+        return;
+      }
+      document.querySelector("#adminUnlockPanel").hidden = true;
+      document.querySelector("#adminWorkspace").hidden = false;
+      switchAdminTab("grant");
+      document.querySelector("#grantCount").focus();
+    });
+
+    document.querySelector("#grantTabButton").addEventListener("click", () => switchAdminTab("grant"));
+    document.querySelector("#prizeTabButton").addEventListener("click", () => switchAdminTab("prize"));
+
+    document.querySelector("#savePrizesButton").addEventListener("click", () => {
+      try {
+        savePrizeConfiguration();
+      } catch (error) {
+        setStatus(document.querySelector("#prizeConfigStatus"), error.message, true);
+      }
+    });
+
+    document.querySelector("#resetPrizesButton").addEventListener("click", resetPrizeConfiguration);
+
+    document.querySelector("#generateCodeButton").addEventListener("click", () => {
+      const count = Number(document.querySelector("#grantCount").value);
+      const status = document.querySelector("#grantStatus");
+      if (!Number.isInteger(count) || count < 1 || count > 99) {
+        setStatus(status, "次数必须是 1 到 99 的整数", true);
+        return;
+      }
+      document.querySelector("#grantOutput").value = generateGrantCode(count);
+      setStatus(status, `已生成 ${count} 次兑换码`);
+    });
+
+    document.querySelector("#copyCodeButton").addEventListener("click", async () => {
+      const output = document.querySelector("#grantOutput");
+      const status = document.querySelector("#grantStatus");
+      if (!output.value) {
+        setStatus(status, "请先生成次数码", true);
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(output.value);
+        setStatus(status, "次数码已复制");
+      } catch {
+        output.select();
+        document.execCommand("copy");
+        setStatus(status, "次数码已复制");
+      }
+    });
+
+    document.querySelectorAll("[data-close]").forEach(button => {
+      button.addEventListener("click", () => closeDialog(document.querySelector(`#${button.dataset.close}`)));
+    });
+
+    [resultDialog, redeemDialog, adminDialog].forEach(backdrop => {
+      backdrop.addEventListener("click", event => {
+        if (event.target !== backdrop) return;
+        if (backdrop === adminDialog) return;
+        if (backdrop === resultDialog && resultDialog.dataset.locked === "true") return;
+        closeDialog(backdrop);
+      });
+    });
+
+    window.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      if (adminDialog.classList.contains("open")) return;
+      if (redeemDialog.classList.contains("open")) closeDialog(redeemDialog);
+      else if (resultDialog.classList.contains("open")) {
+        if (resultDialog.dataset.locked === "true") cancelRedirectResult();
+        else closeDialog(resultDialog);
+      }
+    });
+
+    drawWheel();
+    renderTierList();
+    updateChanceUI();
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#172943">
+  <title>幸运转盘</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      --ink: #12243a;
+      --deep: #172943;
+      --paper: rgba(255, 255, 255, 0.94);
+      --gold: #c99745;
+      --muted: #5d6b78;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: #dce5e2;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { letter-spacing: 0; }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(18px, 3vw, 36px);
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--deep);
+    }
+
+    .brand, .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(23, 41, 67, .45);
+      border-radius: 50%;
+      font-family: Georgia, serif;
+      font-size: 24px;
+      background: rgba(255, 255, 255, .48);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "STSong", serif;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .chance {
+      min-width: 110px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255, 255, 255, .62);
+      border-radius: 4px;
+      color: white;
+      background: rgba(17, 38, 61, .78);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .chance strong { color: #ffe09a; font-size: 18px; }
+
+    .utility-button {
+      min-height: 40px;
+      padding: 8px 12px;
+      border: 1px solid rgba(23, 41, 67, .28);
+      border-radius: 4px;
+      color: var(--deep);
+      background: rgba(255, 255, 255, .7);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .utility-button.icon-only {
+      width: 40px;
+      padding: 0;
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .utility-button:hover { background: white; }
+
+    .game {
+      display: grid;
+      grid-template-columns: minmax(300px, 660px) minmax(250px, 340px);
+      align-items: center;
+      justify-content: center;
+      gap: clamp(28px, 5vw, 72px);
+      padding: 24px 0 12px;
+    }
+
+    .wheel-stage {
+      position: relative;
+      width: min(68vh, 72vw, 640px);
+      aspect-ratio: 1;
+      filter: drop-shadow(0 24px 36px rgba(11, 30, 49, .32));
+    }
+
+    .wheel-ring {
+      position: absolute;
+      inset: 0;
+      border: clamp(9px, 1.2vw, 15px) solid #f2dfb0;
+      border-radius: 50%;
+      background: #f8eccd;
+      box-shadow: inset 0 0 0 4px #b48436, 0 0 0 2px rgba(255, 255, 255, .7);
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transition: transform 4.8s cubic-bezier(.14, .72, .08, 1);
+      will-change: transform;
+    }
+
+    .pointer {
+      position: absolute;
+      z-index: 3;
+      top: -12px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-left: 24px solid transparent;
+      border-right: 24px solid transparent;
+      border-top: 58px solid #f5d37d;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 4px 2px rgba(64, 37, 7, .32));
+    }
+
+    .pointer::after {
+      content: "";
+      position: absolute;
+      top: -57px;
+      left: -6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff8d4;
+    }
+
+    .spin-button {
+      position: absolute;
+      z-index: 4;
+      inset: 50% auto auto 50%;
+      width: clamp(92px, 15%, 116px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border: 5px solid #f5dfaa;
+      border-radius: 50%;
+      color: white;
+      background: #294c6a;
+      box-shadow: 0 6px 0 #17314b, 0 10px 22px rgba(10, 31, 52, .4), inset 0 0 0 2px rgba(255, 255, 255, .28);
+      cursor: pointer;
+      font-size: clamp(18px, 2.4vw, 25px);
+      font-weight: 800;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    .spin-button:hover:not(:disabled) { transform: translate(-50%, -50%) scale(1.06); filter: brightness(1.08); }
+    .spin-button:active:not(:disabled) { transform: translate(-50%, -47%) scale(.98); box-shadow: 0 3px 0 #17314b; }
+    .spin-button:disabled { cursor: not-allowed; opacity: .72; }
+
+    .tier-panel {
+      padding: 26px 28px;
+      border-top: 3px solid var(--gold);
+      border-radius: 5px;
+      background: var(--paper);
+      box-shadow: 0 18px 48px rgba(12, 31, 51, .22);
+    }
+
+    .panel-title {
+      margin: 0 0 18px;
+      font-family: Georgia, "STSong", serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .tier-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+
+    .tier-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0 13px;
+      border-bottom: 1px solid rgba(28, 57, 84, .13);
+    }
+
+    .tier-item:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .tier-badge {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .tier-item span:last-child { color: var(--muted); font-size: 13px; }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: rgba(18, 36, 58, .7);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .footer-admin {
+      padding: 4px 7px;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     .media-status {
       position: fixed;
       z-index: 9;
