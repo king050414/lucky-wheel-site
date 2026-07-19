@@ -295,6 +295,8 @@
       transition: transform .2s ease;
     }
 
+    .dialog.admin-dialog { width: min(760px, 100%); }
+
     .open .dialog { transform: translateY(0) scale(1); }
     .dialog-icon { font-size: 52px; }
     .dialog h2 { margin: 8px 0 10px; font-size: 25px; }
@@ -339,6 +341,71 @@
     .form-status { min-height: 20px; margin: 0; color: #2f6b4f; font-size: 13px; text-align: center; }
     .form-status.error { color: #a13d36; }
 
+    .admin-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin: 18px 0;
+      padding: 4px;
+      border-radius: 5px;
+      background: #e7ecec;
+    }
+
+    .admin-tab {
+      min-height: 40px;
+      border: 0;
+      border-radius: 3px;
+      color: #4b5d6c;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .admin-tab[aria-selected="true"] {
+      color: white;
+      background: #254e6d;
+      box-shadow: 0 2px 8px rgba(23, 41, 67, .18);
+    }
+
+    .prize-editor { display: grid; gap: 0; }
+
+    .prize-edit-row {
+      display: grid;
+      grid-template-columns: 46px minmax(120px, 1.1fr) minmax(150px, 1.5fr) 100px 130px;
+      align-items: end;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #dbe1e3;
+    }
+
+    .prize-edit-row:last-child { border-bottom: 0; }
+
+    .edit-tier {
+      align-self: center;
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .compact-label {
+      display: grid;
+      gap: 5px;
+      color: #4b5d6c;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .compact-input {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 9px;
+      border: 1px solid #b9c4cb;
+      border-radius: 4px;
+      color: var(--ink);
+      background: white;
+    }
+
     @media (max-width: 850px) {
       .app { padding: 18px 14px; }
       .topbar { align-items: flex-start; flex-wrap: wrap; }
@@ -356,6 +423,12 @@
       .wheel-stage { width: min(92vw, 420px); }
       .utility-button { min-height: 38px; }
       .dialog { padding: 27px 20px 22px; }
+      .prize-edit-row {
+        grid-template-columns: 38px 1fr 86px;
+        align-items: end;
+      }
+      .prize-edit-row .detail-field,
+      .prize-edit-row .behavior-field { grid-column: 2 / -1; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -425,7 +498,7 @@
   </div>
 
   <div class="dialog-backdrop" id="adminDialog" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
-    <div class="dialog">
+    <div class="dialog admin-dialog">
       <div class="dialog-icon" aria-hidden="true">◆</div>
       <h2 id="adminTitle">管理员模式</h2>
       <div class="form-stack" id="adminUnlockPanel">
@@ -437,16 +510,31 @@
           <button class="action-button" id="adminUnlockButton" type="button">解锁</button>
         </div>
       </div>
-      <div class="form-stack" id="adminGrantPanel" hidden>
-        <label class="form-label" for="grantCount">赠送次数</label>
-        <input class="form-input" id="grantCount" type="number" min="1" max="99" value="1">
-        <button class="action-button" id="generateCodeButton" type="button">生成次数码</button>
-        <label class="form-label" for="grantOutput">次数码</label>
-        <textarea class="form-input" id="grantOutput" readonly spellcheck="false"></textarea>
-        <p class="form-status" id="grantStatus" aria-live="polite"></p>
-        <div class="dialog-actions">
-          <button class="action-button secondary" type="button" data-close="adminDialog">关闭</button>
-          <button class="action-button" id="copyCodeButton" type="button">复制次数码</button>
+      <div id="adminWorkspace" hidden>
+        <div class="admin-tabs" role="tablist" aria-label="管理员功能">
+          <button class="admin-tab" id="grantTabButton" type="button" role="tab" aria-selected="true" aria-controls="adminGrantPanel">次数管理</button>
+          <button class="admin-tab" id="prizeTabButton" type="button" role="tab" aria-selected="false" aria-controls="adminPrizePanel">奖品设置</button>
+        </div>
+        <div class="form-stack" id="adminGrantPanel" role="tabpanel">
+          <label class="form-label" for="grantCount">赠送次数</label>
+          <input class="form-input" id="grantCount" type="number" min="1" max="99" value="1">
+          <button class="action-button" id="generateCodeButton" type="button">生成次数码</button>
+          <label class="form-label" for="grantOutput">次数码</label>
+          <textarea class="form-input" id="grantOutput" readonly spellcheck="false"></textarea>
+          <p class="form-status" id="grantStatus" aria-live="polite"></p>
+          <div class="dialog-actions">
+            <button class="action-button secondary" type="button" data-close="adminDialog">关闭</button>
+            <button class="action-button" id="copyCodeButton" type="button">复制次数码</button>
+          </div>
+        </div>
+        <div class="form-stack" id="adminPrizePanel" role="tabpanel" hidden>
+          <div class="prize-editor" id="prizeEditor"></div>
+          <p class="form-status" id="prizeConfigStatus" aria-live="polite"></p>
+          <div class="dialog-actions">
+            <button class="action-button secondary" id="resetPrizesButton" type="button">恢复默认</button>
+            <button class="action-button secondary" type="button" data-close="adminDialog">关闭</button>
+            <button class="action-button" id="savePrizesButton" type="button">保存奖品设置</button>
+          </div>
         </div>
       </div>
     </div>
@@ -465,7 +553,7 @@
     const ADMIN_PIN = "8888";
     const CODE_SECRET = "lucky-wheel-offline-grant-2026";
 
-    const prizes = [
+    const defaultPrizes = [
       { tier: "S", label: "谢谢参与", detail: "期待下次好运", weight: 2, color: "#8d87ad", icon: "◇" },
       { tier: "A", label: "请喝蜜雪", detail: "一次（10 元内）", weight: 3, color: "#d98371", icon: "♨" },
       { tier: "B", label: "免费帮肝", detail: "一星期每日委托", weight: 5, color: "#67a991", icon: "✓" },
@@ -487,9 +575,8 @@
     const spinAudio = document.querySelector("#spinAudio");
     const mysteryAudio = document.querySelector("#mysteryAudio");
     const mediaStatus = document.querySelector("#mediaStatus");
-    const totalWeight = prizes.reduce((sum, prize) => sum + prize.weight, 0);
-
     const storedState = loadState();
+    let prizes = storedState.prizes;
     let chances = storedState.chances;
     const redeemedCodes = new Set(storedState.redeemedCodes);
     let rotation = 0;
@@ -506,18 +593,42 @@
         const storedChances = Number(value?.chances);
         return {
           chances: Number.isInteger(storedChances) && storedChances >= 0 ? storedChances : 1,
-          redeemedCodes: Array.isArray(value?.redeemedCodes) ? value.redeemedCodes.slice(-200) : []
+          redeemedCodes: Array.isArray(value?.redeemedCodes) ? value.redeemedCodes.slice(-200) : [],
+          prizes: sanitizePrizes(value?.prizes)
         };
       } catch {
-        return { chances: 1, redeemedCodes: [] };
+        return { chances: 1, redeemedCodes: [], prizes: cloneDefaultPrizes() };
       }
+    }
+
+    function cloneDefaultPrizes() {
+      return defaultPrizes.map(prize => ({ ...prize }));
+    }
+
+    function sanitizePrizes(value) {
+      if (!Array.isArray(value) || value.length !== defaultPrizes.length) return cloneDefaultPrizes();
+      return defaultPrizes.map((defaults, index) => {
+        const candidate = value[index] || {};
+        const weight = Number(candidate.weight);
+        return {
+          ...defaults,
+          label: typeof candidate.label === "string" && candidate.label.trim() ? candidate.label.trim().slice(0, 24) : defaults.label,
+          detail: typeof candidate.detail === "string" && candidate.detail.trim() ? candidate.detail.trim().slice(0, 80) : defaults.detail,
+          weight: Number.isFinite(weight) && weight > 0 ? Math.min(weight, 10000) : defaults.weight,
+          bonus: candidate.bonus === true,
+          redirect: candidate.redirect === true
+        };
+      });
     }
 
     function saveState() {
       try {
         localStorage.setItem(STATE_KEY, JSON.stringify({
           chances,
-          redeemedCodes: Array.from(redeemedCodes).slice(-200)
+          redeemedCodes: Array.from(redeemedCodes).slice(-200),
+          prizes: prizes.map(({ tier, label, detail, weight, color, icon, bonus, redirect }) => ({
+            tier, label, detail, weight, color, icon, bonus: bonus === true, redirect: redirect === true
+          }))
         }));
       } catch {
         // The page still works when storage is unavailable; only persistence is lost.
@@ -614,6 +725,7 @@
     }
 
     function weightedPick() {
+      const totalWeight = prizes.reduce((sum, prize) => sum + prize.weight, 0);
       let roll = Math.random() * totalWeight;
       for (let index = 0; index < prizes.length; index += 1) {
         roll -= prizes[index].weight;
@@ -643,15 +755,32 @@
       resultActions.innerHTML = "";
       resultDialog.dataset.locked = locked ? "true" : "false";
 
-      if (!locked) {
-        const close = document.createElement("button");
-        close.className = "action-button";
-        close.type = "button";
-        close.textContent = "收下奖励";
-        close.addEventListener("click", () => closeDialog(resultDialog));
-        resultActions.append(close);
+      const close = document.createElement("button");
+      close.className = locked ? "action-button secondary" : "action-button";
+      close.type = "button";
+      close.textContent = locked ? "关闭提示" : "收下奖励";
+      close.addEventListener("click", locked ? cancelRedirectResult : () => closeDialog(resultDialog));
+      resultActions.append(close);
+
+      if (locked) {
+        const goNow = document.createElement("button");
+        goNow.className = "action-button";
+        goNow.type = "button";
+        goNow.textContent = "立即前往";
+        goNow.addEventListener("click", goToOfficialSite);
+        resultActions.append(goNow);
       }
       openDialog(resultDialog);
+    }
+
+    function cancelRedirectResult() {
+      redirecting = false;
+      window.clearTimeout(redirectFallbackTimer);
+      mysteryAudio.pause();
+      mysteryAudio.currentTime = 0;
+      resultDialog.dataset.locked = "false";
+      closeDialog(resultDialog);
+      updateChanceUI();
     }
 
     function spin() {
@@ -770,6 +899,74 @@
       element.classList.toggle("error", isError);
     }
 
+    function switchAdminTab(tabName) {
+      const grantActive = tabName === "grant";
+      document.querySelector("#grantTabButton").setAttribute("aria-selected", String(grantActive));
+      document.querySelector("#prizeTabButton").setAttribute("aria-selected", String(!grantActive));
+      document.querySelector("#adminGrantPanel").hidden = !grantActive;
+      document.querySelector("#adminPrizePanel").hidden = grantActive;
+      if (!grantActive) renderPrizeEditor();
+    }
+
+    function renderPrizeEditor(source = prizes) {
+      const editor = document.querySelector("#prizeEditor");
+      editor.innerHTML = "";
+
+      source.forEach((prize, index) => {
+        const row = document.createElement("div");
+        row.className = "prize-edit-row";
+        row.dataset.index = index;
+        row.innerHTML = `
+          <div class="edit-tier" style="color:${prize.color}">${prize.tier}</div>
+          <label class="compact-label">奖品名称<input class="compact-input prize-name" maxlength="24"></label>
+          <label class="compact-label detail-field">奖品说明<input class="compact-input prize-detail" maxlength="80"></label>
+          <label class="compact-label">概率权重<input class="compact-input prize-weight" type="number" min="0.01" max="10000" step="0.01"></label>
+          <label class="compact-label behavior-field">中奖行为<select class="compact-input prize-behavior"><option value="normal">普通奖励</option><option value="bonus">增加一次</option><option value="redirect">跳转原神</option></select></label>
+        `;
+        row.querySelector(".prize-name").value = prize.label;
+        row.querySelector(".prize-detail").value = prize.detail;
+        row.querySelector(".prize-weight").value = prize.weight;
+        row.querySelector(".prize-behavior").value = prize.redirect ? "redirect" : prize.bonus ? "bonus" : "normal";
+        editor.append(row);
+      });
+    }
+
+    function savePrizeConfiguration() {
+      const rows = Array.from(document.querySelectorAll("#prizeEditor .prize-edit-row"));
+      const nextPrizes = rows.map((row, index) => {
+        const label = row.querySelector(".prize-name").value.trim();
+        const detail = row.querySelector(".prize-detail").value.trim();
+        const weight = Number(row.querySelector(".prize-weight").value);
+        const behavior = row.querySelector(".prize-behavior").value;
+        if (!label || !detail) throw new Error(`${defaultPrizes[index].tier}级名称和说明不能为空`);
+        if (!Number.isFinite(weight) || weight <= 0) throw new Error(`${defaultPrizes[index].tier}级概率权重必须大于 0`);
+        return {
+          ...defaultPrizes[index],
+          label: label.slice(0, 24),
+          detail: detail.slice(0, 80),
+          weight: Math.min(weight, 10000),
+          bonus: behavior === "bonus",
+          redirect: behavior === "redirect"
+        };
+      });
+
+      prizes = nextPrizes;
+      saveState();
+      drawWheel();
+      renderTierList();
+      const total = prizes.reduce((sum, prize) => sum + prize.weight, 0);
+      setStatus(document.querySelector("#prizeConfigStatus"), `奖品设置已保存，总权重 ${total}`);
+    }
+
+    function resetPrizeConfiguration() {
+      prizes = cloneDefaultPrizes();
+      saveState();
+      drawWheel();
+      renderTierList();
+      renderPrizeEditor();
+      setStatus(document.querySelector("#prizeConfigStatus"), "已恢复默认奖品与概率");
+    }
+
     spinButton.addEventListener("click", spin);
     spinAudio.addEventListener("error", () => reportMediaError("转盘音频资源加载失败"));
     mysteryAudio.addEventListener("error", () => reportMediaError("奖励音频资源加载失败"));
@@ -795,9 +992,10 @@
 
     document.querySelector("#adminOpenButton").addEventListener("click", () => {
       document.querySelector("#adminPin").value = "";
-      document.querySelector("#adminGrantPanel").hidden = true;
+      document.querySelector("#adminWorkspace").hidden = true;
       document.querySelector("#adminUnlockPanel").hidden = false;
       setStatus(document.querySelector("#adminUnlockStatus"), "");
+      setStatus(document.querySelector("#prizeConfigStatus"), "");
       openDialog(adminDialog);
       document.querySelector("#adminPin").focus();
     });
@@ -809,9 +1007,23 @@
         return;
       }
       document.querySelector("#adminUnlockPanel").hidden = true;
-      document.querySelector("#adminGrantPanel").hidden = false;
+      document.querySelector("#adminWorkspace").hidden = false;
+      switchAdminTab("grant");
       document.querySelector("#grantCount").focus();
     });
+
+    document.querySelector("#grantTabButton").addEventListener("click", () => switchAdminTab("grant"));
+    document.querySelector("#prizeTabButton").addEventListener("click", () => switchAdminTab("prize"));
+
+    document.querySelector("#savePrizesButton").addEventListener("click", () => {
+      try {
+        savePrizeConfiguration();
+      } catch (error) {
+        setStatus(document.querySelector("#prizeConfigStatus"), error.message, true);
+      }
+    });
+
+    document.querySelector("#resetPrizesButton").addEventListener("click", resetPrizeConfiguration);
 
     document.querySelector("#generateCodeButton").addEventListener("click", () => {
       const count = Number(document.querySelector("#grantCount").value);
@@ -857,7 +1069,10 @@
       if (event.key !== "Escape") return;
       if (adminDialog.classList.contains("open")) closeDialog(adminDialog);
       else if (redeemDialog.classList.contains("open")) closeDialog(redeemDialog);
-      else if (resultDialog.classList.contains("open") && resultDialog.dataset.locked !== "true") closeDialog(resultDialog);
+      else if (resultDialog.classList.contains("open")) {
+        if (resultDialog.dataset.locked === "true") cancelRedirectResult();
+        else closeDialog(resultDialog);
+      }
     });
 
     drawWheel();
